@@ -129,7 +129,7 @@ function App() {
       
       <img 
         ref={mailref2} 
-        src={`${process.env.PUBLIC_URL}/mailopen2.png`} 
+        src="/ForJoanna/mailopen2.png"
         className={clsx(
           "pixelated absolute bottom-[25%] h-[60%] w-[35%] pointer-events-none transition-opacity duration-300",
           open ? "z-15" : "z-0"
@@ -139,7 +139,7 @@ function App() {
 
       <img 
         ref={hachiRef} 
-        src={`${process.env.PUBLIC_URL}/hachiware.gif`} 
+        src="/ForJoanna/hachiware.gif"
         className="z-10 pixelated absolute bottom-[25%] w-1/5 pointer-events-none opacity-0"
       />
       <h2 ref={textRef} className="absolute top-10 left-[35%] text-4xl font-bold text-[#c91e31] z-20">
