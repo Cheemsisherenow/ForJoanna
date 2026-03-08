@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import clsx from "clsx";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -8,6 +8,7 @@ gsap.registerPlugin(SplitText);
 
 function App() {
   const [open, setOpen] = useState(false)
+  const [show, setShow] = useState(false);
   let dir = 15;
   const [showSnow, setShowSnow] = useState(false);
   const mailref1 = useRef(null);
@@ -18,7 +19,19 @@ function App() {
   const textRef2 = useRef(null);
   const textRef3 = useRef(null);
   const text = new SplitText("#myText", { type: "chars" });
-
+  useEffect(()=>{
+    if (show){
+    gsap.set([mailref1.current, mailref2.current,title.current],{
+      opacity: 1,
+      pointerEvents: "auto"
+    })}
+    else{
+      gsap.set([mailref1.current,mailref2.current,title.current],{
+        opacity: 0,
+        pointerEvents: "none"
+      })
+    }
+  },[show])
 
   useGSAP(() => {
     // Set initial positions with GSAP (centers everything)
@@ -99,9 +112,27 @@ function App() {
       "-=1.4"
     );
   }, { dependencies: [open] });
+  const [inputValue, setInputValue] = useState('');
+  const handleChange = (event) => {
+    // Access the value using event.target.value
+    setInputValue(event.target.value);
+  };
+  const handleSubmit = (event) => {
+    if(inputValue == "Haro"){
+      setShow(true);
+      
+    }
+    console.log(show);
+  };
 
   return (
     <div className="relative bg-[#ffa8d6] w-screen h-screen overflow-hidden">
+     {!show && <form onSubmit={handleSubmit} className="bg-white absolute">
+      <label>
+        Name:
+        <input type="text" value={inputValue} onChange={handleChange} />
+      </label>
+    </form>}
       {showSnow && (
         <div className="absolute inset-0 z-50 pointer-events-none">
           <Snowfall 
